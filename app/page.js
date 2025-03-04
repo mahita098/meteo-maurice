@@ -46,7 +46,7 @@ export default function Home() {
       .then((res) => res.json())
       .then(({ lastUpdated, data }) => {
         const today = new Date();
-        const todayDay = today.toLocaleString("en-US", { weekday: "short" });
+        const todayDay = today.toLocaleString("en-US", { weekday: "long" });
         const todayMonth = today.toLocaleString("en-US", { month: "short" });
         const todayDate = today.getDate();
 
@@ -89,12 +89,12 @@ export default function Home() {
     <div className="bg-gradient-to-r from-green-50 to-blue-200">
       <div className="container mx-auto max-w-5xl px-4">
         <main>
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <h1 className="text-3xl px-4 pt-6 pb-2 md:p-7 font-extrabold">
+          <div className="flex flex-col md:flex-row items-center justify-between ">
+            <h1 className="text-3xl px-4 pt-6 pb-2 md:p-7 font-extrabold w-full">
               Mauritius Weather Forecast
             </h1>
             {lastUpdated && (
-              <p className="text-sm text-gray-500 p-4 md:p-0 text-left w-full">
+              <p className="text-sm text-gray-500 p-4 md:p-0 text-left md:text-right w-full">
                 Last updated: {new Date(lastUpdated).toLocaleString()}
               </p>
             )}
@@ -109,22 +109,24 @@ export default function Home() {
                   setExpandedDay(expandedDay === index ? null : index)
                 }
               >
-                <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-bold">{day.day}</h2>
-                  <p>{day.date.replace(/\(|\)/g, "")}</p>
+                <div className="flex  md:flex-col items-center md:text-left w-full">
+                  <h2>{day.day}</h2>
+                  <p className="text-lg font-bold">
+                    {day.date.replace(/\(|\)/g, "")}
+                  </p>
                 </div>
 
                 {expandedDay === index || index === 0 ? (
                   <>
                     <div className="flex md:flex-col items-center gap-4">
-                      <p className="text-lg font-bold">Condition:</p>
-                      <p>{day.condition}</p>
+                      <p>Condition:</p>
+                      <p className="text-lg font-bold">{day.condition}</p>
                       <img src={getWeatherIcon(day.condition)} alt="Weather" />
                     </div>
 
-                    <div className="flex items-center gap-4">
-                      <p className="text-lg font-bold">Temperature:</p>
-                      <p>
+                    <div className="flex items-center md:flex-col gap-4">
+                      <p>Temperature:</p>
+                      <p className="text-lg font-bold">
                         {day.min} - {day.max}°C
                       </p>
                       {parseInt(day.max) > 26 ? (
@@ -148,14 +150,16 @@ export default function Home() {
                       ) : null}
                     </div>
 
-                    <div className="flex items-center gap-4">
-                      <p className="text-lg font-bold">Wind:</p>
-                      <p>{day.wind}</p>
+                    <div className="flex items-center md:flex-col gap-4">
+                      <p>Wind:</p>
+                      <p className="text-lg font-bold">{day.wind}</p>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                      <p className="text-lg font-bold">Sea Condition:</p>
-                      <p>{day["sea condition"]}</p>
+                    <div className="flex items-center md:flex-col gap-4">
+                      <p>Sea Condition:</p>
+                      <p className="text-lg font-bold">
+                        {day["sea condition"]}
+                      </p>
                       {day["sea condition"] === "moderate" && (
                         <img
                           src="/moderatesea.gif"
@@ -172,9 +176,9 @@ export default function Home() {
                       )}
                     </div>
 
-                    <div className="flex items-center gap-4">
-                      <p className="text-lg font-bold">Probability:</p>
-                      <p>{day.probability}</p>
+                    <div className="flex items-center  md:flex-col gap-4">
+                      <p>Probability:</p>
+                      <p className="text-lg font-bold">{day.probability}</p>
                     </div>
                   </>
                 ) : null}
