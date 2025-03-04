@@ -104,12 +104,12 @@ export default function Home() {
             {weather.map((day, index) => (
               <li
                 key={index}
-                className="bg-slate-100/50 w-full rounded-4xl p-8 pt-4 md:grid md:grid-flow-col md:gap-5 flex flex-col gap-3.5 cursor-pointer"
+                className="bg-slate-100/50 w-full rounded-4xl p-8 pt-4 md:grid md:grid-flow-col md:gap-5 flex flex-col gap-3.5 cursor-pointer transition-all duration-300 ease-in-out"
                 onClick={() =>
                   setExpandedDay(expandedDay === index ? null : index)
                 }
               >
-                <div className="flex  md:flex-col items-center md:text-left w-full">
+                <div className="flex  md:flex-col items-center justify-between md:justify-evenly md:text-left w-full">
                   <h2>{day.day}</h2>
                   <p className="text-lg font-bold">
                     {day.date.replace(/\(|\)/g, "")}
@@ -118,13 +118,17 @@ export default function Home() {
 
                 {expandedDay === index || index === 0 ? (
                   <>
-                    <div className="flex md:flex-col items-center gap-4">
+                    <div className="md:flex md:flex-col items-center gap-4 grid grid-cols-3">
                       <p>Condition:</p>
                       <p className="text-lg font-bold">{day.condition}</p>
-                      <img src={getWeatherIcon(day.condition)} alt="Weather" />
+                      <img
+                        src={getWeatherIcon(day.condition)}
+                        alt="Weather"
+                        className="w-[100px]"
+                      />
                     </div>
 
-                    <div className="flex items-center md:flex-col gap-4">
+                    <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
                       <p>Temperature:</p>
                       <p className="text-lg font-bold">
                         {day.min} - {day.max}°C
@@ -150,12 +154,13 @@ export default function Home() {
                       ) : null}
                     </div>
 
-                    <div className="flex items-center md:flex-col gap-4">
+                    <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
                       <p>Wind:</p>
                       <p className="text-lg font-bold">{day.wind}</p>
+                      <div></div>
                     </div>
 
-                    <div className="flex items-center md:flex-col gap-4">
+                    <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
                       <p>Sea Condition:</p>
                       <p className="text-lg font-bold">
                         {day["sea condition"]}
@@ -176,9 +181,10 @@ export default function Home() {
                       )}
                     </div>
 
-                    <div className="flex items-center  md:flex-col gap-4">
+                    <div className="md:flex items-center  md:flex-col gap-4 grid grid-cols-3">
                       <p>Probability:</p>
                       <p className="text-lg font-bold">{day.probability}</p>
+                      <div></div>
                     </div>
                   </>
                 ) : null}
