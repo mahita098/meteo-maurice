@@ -83,7 +83,12 @@ export default function Home() {
       .catch((err) => console.error("Error fetching weather:", err));
   }, []);
 
-  if (!weather.length) return <div>Loading...</div>;
+  if (!weather.length)
+    return (
+      <div className="bg-gradient-to-r from-green-50 to-blue-200 min-h-screen flex justify-center items-center">
+        <p className="font-bold text-center text-2xl">Loading data...</p>
+      </div>
+    );
 
   return (
     <div className="bg-gradient-to-r from-green-50 to-blue-200">
