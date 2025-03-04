@@ -91,7 +91,7 @@ export default function Home() {
         <main>
           <div className="flex flex-col md:flex-row items-center justify-between ">
             <h1 className="text-3xl px-4 pt-6 pb-2 md:p-7 font-extrabold w-full">
-              Mauritius Weather Forecast
+              Mauritius Weather Forecast - Weekly
             </h1>
             {lastUpdated && (
               <p className="text-sm text-gray-500 p-4 md:p-0 text-left md:text-right w-full">
@@ -100,18 +100,18 @@ export default function Home() {
             )}
           </div>
 
-          <ul className="grid md:grid-cols-1 gap-2 items-center justify-center">
+          <ul className="grid md:grid-cols-1 gap-4 items-center justify-center">
             {weather.map((day, index) => (
               <li
                 key={index}
-                className="bg-slate-100/50 w-full rounded-4xl p-8 pt-4 md:grid md:grid-flow-col md:gap-5 flex flex-col gap-3.5 cursor-pointer transition-all duration-300 ease-in-out"
+                className="bg-slate-100/50 w-full rounded-2xl p-2 px-8 md:p-8 pt-4 md:grid md:grid-flow-col gap-1  md:gap-5 flex flex-col  cursor-pointer transition-all duration-300 ease-in-out"
                 onClick={() =>
                   setExpandedDay(expandedDay === index ? null : index)
                 }
               >
-                <div className="flex  md:flex-col items-center justify-between md:justify-evenly md:text-left w-full">
-                  <h2>{day.day}</h2>
-                  <p className="text-lg font-bold">
+                <div className="flex  flex-col md:items-center  md:justify-evenly text-left md:w-full h-fit jusify-center md:self-center py-2 md:py-4">
+                  <h2 className="font-bold">{day.day}</h2>
+                  <p className="text-2xl font-bold">
                     {day.date.replace(/\(|\)/g, "")}
                   </p>
                 </div>
