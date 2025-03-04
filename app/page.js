@@ -104,7 +104,7 @@ export default function Home() {
             {weather.map((day, index) => (
               <li
                 key={index}
-                className="bg-slate-100/50 w-full rounded-2xl p-2 px-8 md:p-8 pt-4 md:grid md:grid-flow-col gap-1  md:gap-5 flex flex-col  cursor-pointer transition-all duration-300 ease-in-out"
+                className="bg-slate-100/50 w-full rounded-2xl p-2 px-8 md:p-4 pt-4 md:grid md:grid-flow-col gap-1  md:gap-5 flex flex-col  cursor-pointer transition-all duration-300 ease-in-out"
                 onClick={() =>
                   setExpandedDay(expandedDay === index ? null : index)
                 }
