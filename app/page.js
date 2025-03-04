@@ -38,21 +38,22 @@ export default function Home() {
             {weather.map((day, index) => (
               <li
                 key={index}
-                className="bg-blue-100/50 bg-opacity-5 w-full rounded-4xl p-8 pt-4 grid grid-flow-col gap-5"
+                className="bg-blue-100/50 bg-opacity-5 w-full rounded-4xl p-8 pt-4 md:grid 
+                 md:grid-flow-col md:gap-5"
               >
-                <div className="flex flex-col items-center  gap-6 ">
+                <div className="flex flex-row md:flex-col md:items-center justify-between  gap-6 ">
                   <h2 className="text-lg font-bold">{day.day}</h2>
                   <div className="flex flex-col items-center  ">
                     <p>{day.date.replace(/\(|\)/g, "")}</p>
                   </div>
                 </div>
-                <div className="flex flex-col items-center gap-6 ">
+                <div className="flex flex-row md:flex-col md:items-center justify-between gap-6 ">
                   <p className="text-lg font-bold">Condition: </p>
                   <div className="flex flex-col items-center  ">
                     <p>{day.condition}</p>
                   </div>
                 </div>
-                <div className="flex flex-col items-center justify-evenly gap-6 ">
+                <div className="flex flex-row md:flex-col items-center md:justify-evenly gap-6 ">
                   <p className="text-lg font-bold">Temperature:</p>
                   <div className="flex flex-col items-center ">
                     <p>
@@ -82,14 +83,14 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center  gap-6 ">
+                <div className="flex flex-row md:flex-col md:items-center justify-between  gap-6 ">
                   <p className="text-lg font-bold">Wind: </p>
                   <div className="flex flex-col items-center  ">
                     <p>{day.wind}</p>
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center  gap-6 ">
+                <div className="flex flex-row md:flex-col md:items-center justify-between  gap-6 ">
                   <p className="text-lg font-bold">Sea Condition: </p>
                   <div className="flex flex-col items-center h-full justify-between ">
                     <p>{day["sea condition"]}</p>
@@ -114,7 +115,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center  gap-6 ">
+                <div className="flex flex-row md:flex-col md:items-center justify-between  gap-6 ">
                   <p className="text-lg font-bold">Probability: </p>
                   <div className="flex flex-col items-center  ">
                     {" "}
