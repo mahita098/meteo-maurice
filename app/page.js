@@ -18,8 +18,15 @@ const getWeatherIcon = (condition) => {
     return "/partlycloudy.gif";
   }
 
+  if (conditionLower.includes("intermittent")) {
+    return "/intermittenrainfall.gif";
+  }
+
   // Check for night rain
-  if (conditionLower.includes("night showers")) {
+  if (
+    conditionLower.includes("night showers") ||
+    conditionLower.includes("afternoon showers")
+  ) {
     return "/rainingnight.gif";
   }
 
@@ -39,7 +46,6 @@ const getWeatherIcon = (condition) => {
 export default function Home() {
   const [weather, setWeather] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
-  const [expandedDay, setExpandedDay] = useState(null);
 
   useEffect(() => {
     fetch("/api/weather")
@@ -85,21 +91,22 @@ export default function Home() {
 
   if (!weather.length)
     return (
-      <div className="bg-gradient-to-r from-green-50 to-blue-200 min-h-screen flex justify-center items-center">
+      <div className="bg-gradient-to-r from-[#FDBB2D] to-[#3A1C71] min-h-screen flex justify-center items-center flex-col">
         <p className="font-bold text-center text-2xl">Loading data...</p>
+        <img src="/clouds.gif" alt="Weather" className="w-[100px]" />
       </div>
     );
 
   return (
-    <div className="bg-gradient-to-r from-green-50 to-blue-200">
+    <div className="bg-gradient-to-r from-[#FDBB2D] to-[#3A1C71] md:h-screen">
       <div className="container mx-auto max-w-5xl px-4">
-        <main>
+        <main className="md:h-dvh">
           <div className="flex flex-col md:flex-row items-center justify-between ">
             <h1 className="text-3xl px-4 pt-6 pb-2 md:p-7 font-extrabold w-full">
               Mauritius Weather Forecast - Weekly
             </h1>
             {lastUpdated && (
-              <p className="text-sm text-gray-500 p-4 md:p-0 text-left md:text-right w-full">
+              <p className="text-sm text-gray-200 p-4 md:p-0 text-left md:text-right w-full">
                 Last updated: {new Date(lastUpdated).toLocaleString()}
               </p>
             )}
@@ -110,9 +117,6 @@ export default function Home() {
               <li
                 key={index}
                 className="bg-slate-100/50 w-full rounded-2xl p-2 px-8 md:p-4 pt-4 md:grid md:grid-flow-col gap-1  md:gap-5 flex flex-col  cursor-pointer transition-all duration-300 ease-in-out"
-                onClick={() =>
-                  setExpandedDay(expandedDay === index ? null : index)
-                }
               >
                 <div className="flex  flex-col md:items-center  md:justify-evenly text-left md:w-full h-fit jusify-center md:self-center py-2 md:py-4">
                   <h2 className="font-bold">{day.day}</h2>
@@ -121,83 +125,79 @@ export default function Home() {
                   </p>
                 </div>
 
-                {expandedDay === index || index === 0 ? (
-                  <>
-                    <div className="md:flex md:flex-col items-center gap-4 grid grid-cols-3">
-                      <p>Condition:</p>
-                      <p className="text-lg font-bold">{day.condition}</p>
+                <>
+                  <div className="md:flex md:flex-col items-center gap-4 grid grid-cols-3">
+                    <p>Condition:</p>
+                    <p className="text-lg font-bold">{day.condition}</p>
+                    <img
+                      src={getWeatherIcon(day.condition)}
+                      alt="Weather"
+                      className="w-[100px]"
+                    />
+                  </div>
+
+                  <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
+                    <p>Temperature:</p>
+                    <p className="text-lg font-bold">
+                      {day.min} - {day.max}°C
+                    </p>
+                    {parseInt(day.max) > 26 ? (
                       <img
-                        src={getWeatherIcon(day.condition)}
-                        alt="Weather"
-                        className="w-[100px]"
+                        src="/tempover30.gif"
+                        alt="Hot weather"
+                        className="w-[100px] rounded-2xl mt-3"
                       />
-                    </div>
+                    ) : parseInt(day.min) >= 20 && parseInt(day.max) <= 26 ? (
+                      <img
+                        src="/good.gif"
+                        alt="mild weather"
+                        className="w-[150px] rounded-2xl mt-3"
+                      />
+                    ) : parseInt(day.min) < 20 && parseInt(day.max) < 23 ? (
+                      <img
+                        src="/coldemoji.gif"
+                        alt="Cold weather"
+                        className="w-[150px] rounded-2xl mt-3"
+                      />
+                    ) : null}
+                  </div>
 
-                    <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
-                      <p>Temperature:</p>
-                      <p className="text-lg font-bold">
-                        {day.min} - {day.max}°C
-                      </p>
-                      {parseInt(day.max) > 26 ? (
-                        <img
-                          src="/tempover30.gif"
-                          alt="Hot weather"
-                          className="w-[100px] rounded-2xl mt-3"
-                        />
-                      ) : parseInt(day.min) >= 20 && parseInt(day.max) <= 26 ? (
-                        <img
-                          src="/good.gif"
-                          alt="mild weather"
-                          className="w-[150px] rounded-2xl mt-3"
-                        />
-                      ) : parseInt(day.min) < 20 && parseInt(day.max) < 23 ? (
-                        <img
-                          src="/coldemoji.gif"
-                          alt="Cold weather"
-                          className="w-[150px] rounded-2xl mt-3"
-                        />
-                      ) : null}
-                    </div>
+                  <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
+                    <p>Wind:</p>
+                    <p className="text-lg font-bold">{day.wind}</p>
+                    <div></div>
+                  </div>
 
-                    <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
-                      <p>Wind:</p>
-                      <p className="text-lg font-bold">{day.wind}</p>
-                      <div></div>
-                    </div>
+                  <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
+                    <p>Sea Condition:</p>
+                    <p className="text-lg font-bold">{day["sea condition"]}</p>
+                    {day["sea condition"] === "moderate" && (
+                      <img
+                        src="/moderatesea.gif"
+                        alt="Moderate Sea"
+                        className="w-[100px] rounded-4xl"
+                      />
+                    )}
+                    {day["sea condition"] === "rough" && (
+                      <img
+                        src="/roughwave.gif"
+                        alt="Moderate Sea"
+                        className="rounded-4xl w-[100px]"
+                      />
+                    )}
+                  </div>
 
-                    <div className="md:flex items-center md:flex-col gap-4 grid grid-cols-3">
-                      <p>Sea Condition:</p>
-                      <p className="text-lg font-bold">
-                        {day["sea condition"]}
-                      </p>
-                      {day["sea condition"] === "moderate" && (
-                        <img
-                          src="/moderatesea.gif"
-                          alt="Moderate Sea"
-                          className="w-[100px] rounded-4xl"
-                        />
-                      )}
-                      {day["sea condition"] === "rough" && (
-                        <img
-                          src="/roughwave.gif"
-                          alt="Moderate Sea"
-                          className="rounded-4xl"
-                        />
-                      )}
-                    </div>
-
-                    <div className="md:flex items-center  md:flex-col gap-4 grid grid-cols-3">
-                      <p>Probability:</p>
-                      <p className="text-lg font-bold">{day.probability}</p>
-                      <div></div>
-                    </div>
-                  </>
-                ) : null}
+                  <div className="md:flex items-center  md:flex-col gap-4 grid grid-cols-3">
+                    <p>Probability:</p>
+                    <p className="text-lg font-bold">{day.probability}</p>
+                    <div></div>
+                  </div>
+                </>
               </li>
             ))}
           </ul>
         </main>
-        <footer className="mx-auto w-full pb-4 pt-8">
+        <footer className=" w-full pb-4 pt-8 md:pt-4 ">
           <div className="justify-center flex gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
