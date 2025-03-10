@@ -12,8 +12,8 @@ const getWeatherIcon = (condition) => {
 
   // Check for scattered or passing showers
   if (
-    conditionLower.includes("showers") ||
-    conditionLower.includes("partly cloudy")
+    conditionLower.includes("partly cloudy") ||
+    conditionLower.includes("few showers")
   ) {
     return "/partlycloudy.gif";
   }
@@ -22,12 +22,16 @@ const getWeatherIcon = (condition) => {
     return "/intermittenrainfall.gif";
   }
 
+  if (conditionLower.includes("thunderstorms")) {
+    return "/thunderstorm.gif";
+  }
+
   // Check for night rain
   if (
     conditionLower.includes("night showers") ||
     conditionLower.includes("afternoon showers")
   ) {
-    return "/rainingnight.gif";
+    return "/rainynight.gif";
   }
 
   // Check for fair or sunny conditions
@@ -98,9 +102,9 @@ export default function Home() {
     );
 
   return (
-    <div className="bg-gradient-to-r from-[#FDBB2D] to-[#3A1C71] md:h-screen">
+    <div className="bg-gradient-to-r from-[#FDBB2D] to-[#3A1C71] w-full h-full ">
       <div className="container mx-auto max-w-5xl px-4">
-        <main className="md:h-dvh">
+        <main className="w-full h-full">
           <div className="flex flex-col md:flex-row items-center justify-between ">
             <h1 className="text-3xl px-4 pt-6 pb-2 md:p-7 font-extrabold w-full">
               Mauritius Weather Forecast - Weekly
@@ -128,7 +132,9 @@ export default function Home() {
                 <>
                   <div className="md:flex md:flex-col items-center gap-4 grid grid-cols-3">
                     <p>Condition:</p>
-                    <p className="text-lg font-bold">{day.condition}</p>
+                    <p className="text-lg break-words md:max-w-56  font-bold">
+                      {day.condition}
+                    </p>
                     <img
                       src={getWeatherIcon(day.condition)}
                       alt="Weather"
@@ -182,7 +188,7 @@ export default function Home() {
                       <img
                         src="/roughwave.gif"
                         alt="Moderate Sea"
-                        className="rounded-4xl w-[100px]"
+                        className="rounded-4xl w-[80px]"
                       />
                     )}
                   </div>
@@ -197,7 +203,7 @@ export default function Home() {
             ))}
           </ul>
         </main>
-        <footer className=" w-full pb-4 pt-8 md:pt-4 ">
+        <footer className=" w-full h-full pb-4 pt-8 md:pt-4 ">
           <div className="justify-center flex gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
