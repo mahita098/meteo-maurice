@@ -120,7 +120,7 @@ export default function Home() {
             {weather.map((day, index) => (
               <li
                 key={index}
-                className="bg-slate-100/50 w-full rounded-2xl p-2 px-8 md:p-4 pt-4 md:grid md:grid-flow-col gap-1  md:gap-5 flex flex-col  cursor-pointer transition-all duration-300 ease-in-out"
+                className="bg-slate-100/50 w-full rounded-2xl px-8 md:p-4 p-4 pb-6 md:grid md:grid-flow-col gap-1  md:gap-5 flex flex-col  cursor-pointer transition-all duration-300 ease-in-out"
               >
                 <div className="flex  flex-col md:items-center  md:justify-evenly text-left md:w-full h-fit jusify-center md:self-center py-2 md:py-4">
                   <h2 className="font-bold">{day.day}</h2>
