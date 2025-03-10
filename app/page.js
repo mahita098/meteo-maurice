@@ -179,7 +179,7 @@ export default function Home() {
                     <p className="text-lg font-bold">{day["sea condition"]}</p>
                     {day["sea condition"] === "moderate" && (
                       <img
-                        src="/moderatesea.gif"
+                        src="/moderate.gif"
                         alt="Moderate Sea"
                         className="w-[100px] rounded-4xl"
                       />
