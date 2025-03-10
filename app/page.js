@@ -132,13 +132,13 @@ export default function Home() {
                 <>
                   <div className="md:flex md:flex-col items-center gap-4 grid grid-cols-3">
                     <p>Condition:</p>
-                    <p className="text-lg break-words md:max-w-56  font-bold">
+                    <p className="text-lg break-words md:max-w-56  font-bold leading-5">
                       {day.condition}
                     </p>
                     <img
                       src={getWeatherIcon(day.condition)}
                       alt="Weather"
-                      className="w-[100px]"
+                      className="max-w-[110px]"
                     />
                   </div>
 
@@ -151,7 +151,7 @@ export default function Home() {
                       <img
                         src="/tempover30.gif"
                         alt="Hot weather"
-                        className="w-[100px] rounded-2xl mt-3"
+                        className="w-[90px] rounded-2xl mt-3"
                       />
                     ) : parseInt(day.min) >= 20 && parseInt(day.max) <= 26 ? (
                       <img
@@ -181,14 +181,14 @@ export default function Home() {
                       <img
                         src="/moderate.gif"
                         alt="Moderate Sea"
-                        className="w-[100px] rounded-4xl"
+                        className="w-[100px] pt-5  rounded-4xl"
                       />
                     )}
                     {day["sea condition"] === "rough" && (
                       <img
                         src="/roughwave.gif"
-                        alt="Moderate Sea"
-                        className="rounded-4xl w-[80px]"
+                        alt="rough Sea"
+                        className="rounded-4xl w-[90px] pt-5 "
                       />
                     )}
                   </div>
