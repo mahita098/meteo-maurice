@@ -5,7 +5,10 @@ const getWeatherIcon = (condition) => {
   const conditionLower = condition.toLowerCase(); // Normalize to lowercase
 
   // Check for morning rain
-  if (conditionLower.includes("morning showers")) {
+  if (
+    conditionLower.includes("morning showers") ||
+    conditionLower.includes("morning localised showers")
+  ) {
     return "/morningrain.gif";
   }
 
@@ -31,7 +34,8 @@ const getWeatherIcon = (condition) => {
   // Check for night rain
   if (
     conditionLower.includes("night showers") ||
-    conditionLower.includes("afternoon showers")
+    conditionLower.includes("afternoon showers") ||
+    conditionLower.includes("afternoon localised showers")
   ) {
     return "/rainynight.gif";
   }
